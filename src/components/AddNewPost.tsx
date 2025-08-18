@@ -1,22 +1,105 @@
+import { Plus } from "lucide-react";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { postsStore } from "../store/postsStore";
+
 const AddNewPost = () => {
+  const [newPost, setNewPost] = useState({ title: "", body: "" });
+
+  const { addLocalPost } = postsStore();
+
+  const el = document.getElementById("my_modal");
+  const openModal = () => {
+    if (el instanceof HTMLDialogElement) el.showModal();
+  };
+
+  const closeModal = () => {
+    if (el instanceof HTMLDialogElement) el.close();
+  };
+
+  const handleSubmit = () => {
+    const title = newPost.title.trim();
+    const body = newPost.body.trim();
+
+    if (!title || !body) return toast.error("Title and body are required.");
+
+    if (title.length > 70)
+      return toast.error("Title can't exceed 70 characters");
+
+    if (body.length > 140)
+      return toast.error("Body can't exceed 140 characters");
+
+    addLocalPost(title, body);
+    toast.success("Post created");
+
+    setNewPost({ title: "", body: "" });
+  };
+
   return (
     <div>
-      {/* You can open the modal using document.getElementById('ID').showModal() method */}
       <button
-        className="btn"
-        onClick={() => document.getElementById("my_modal_4").showModal()}
+        className="  w-6 h-6 cursor-pointer opacity-70 hover:opacity-100 hover:scale-110 transition duration-200"
+        onClick={openModal}
       >
-        open modal
+        <Plus className="" />
       </button>
-      <dialog id="my_modal_4" className="modal">
-        <div className="modal-box w-11/12 max-w-5xl">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">Click the button below to close</p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button, it will close the modal */}
-              <button className="btn">Close</button>
+
+      <dialog id="my_modal" className="modal">
+        <div className="modal-box h-[35%] w-11/12 max-w-5xl">
+          <h3 className="font-bold text-lg text-secondary mb-10 ml-2">
+            Create New Post
+          </h3>
+
+          <div className="modal-action flex flex-col">
+            {/* Form */}
+
+            <form method="dialog" className="flex flex-col w-full space-y-10">
+              <label htmlFor="title" className="sr-only">
+                Title
+              </label>
+              <input
+                id="title"
+                type="text"
+                placeholder="Title"
+                className="input input-primary w-full"
+                required
+                value={newPost.title}
+                onChange={(e) =>
+                  setNewPost({ ...newPost, title: e.target.value })
+                }
+              />
+
+              <label htmlFor="body" className="sr-only">
+                Body
+              </label>
+              <textarea
+                id="body"
+                placeholder="What's on your mind?"
+                className="textarea textarea-primary w-full  resize-none"
+                required
+                value={newPost.body}
+                onChange={(e) =>
+                  setNewPost({ ...newPost, body: e.target.value })
+                }
+              />
             </form>
+
+            <div className="mt-8 mx-20 flex justify-between">
+              <button
+                onClick={handleSubmit}
+                type="submit"
+                className="btn btn-secondary w-35"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                onClick={closeModal}
+                className="btn btn-secondary w-35"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </dialog>

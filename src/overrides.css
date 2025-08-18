@@ -1,0 +1,8 @@
+/* Load AFTER App.css so it wins */
+dialog#my_modal.modal::backdrop {
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* Optional: make all modals transparent globally */
+// .modal::backdrop { background: transparent !important; backdrop-filter: none !important; }

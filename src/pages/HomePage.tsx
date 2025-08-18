@@ -1,13 +1,13 @@
 import Card from "../components/Card";
-import { Plus, StickyNote } from "lucide-react";
+import { StickyNote } from "lucide-react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import CardsSkeleton from "../components/CardsSkeleton";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import SearchField from "../components/SearchField";
-import { Link } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { postsStore } from "../store/postsStore";
+import AddNewPost from "../components/AddNewPost";
 
 export const HomePage = () => {
   const { posts, isPostsLoading, getPosts, setSelectedPostId } = postsStore();
@@ -51,17 +51,12 @@ export const HomePage = () => {
             </h1>
           </div>
 
-          {/* Plus button */}
+          {/* Add new post */}
           <div
-            className="tooltip tooltip-bottom absolute  right-17 top-12  -translate-y-1/2"
+            className="tooltip tooltip-bottom absolute right-17 top-14 -translate-y-1/2 "
             data-tip="Add a new post"
           >
-            <Link
-              to="/new"
-              className="w-6 h-6 cursor-pointer opacity-70 hover:opacity-100 hover:scale-110 transition duration-200"
-            >
-              <Plus />
-            </Link>
+            <AddNewPost />
           </div>
 
           {/* Search field */}
@@ -71,14 +66,14 @@ export const HomePage = () => {
         </div>
 
         {/* Cards grid */}
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-items-center sm:mx-8 sm:mt-8 ">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-stretch justify-items-stretch sm:mx-8 sm:mt-8">
           {isPostsLoading
             ? Array.from({ length: PAGE_SIZE }).map((_, i) => (
                 <CardsSkeleton key={i} />
               ))
             : pageItems.map((post, i) => (
                 <Card
-                  onClick={() => setSelectedPostId(post.id)}
+                  onClick={() => setSelectedPostId(+post.id)}
                   key={i}
                   title={post.title}
                   body={post.body}
