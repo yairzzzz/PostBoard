@@ -31,7 +31,9 @@ export const HomePage = () => {
     return filteredPosts.slice(start, start + PAGE_SIZE);
   }, [filteredPosts, page]);
 
-  useEffect(() => setPage(1), [query]);
+  useEffect(() => {
+    if (query) setPage(1);
+  }, [query]);
 
   useEffect(() => {
     getPosts();
@@ -60,6 +62,7 @@ export const HomePage = () => {
           </div>
 
           {/* :TODO? - debounce search */}
+
           {/* Search field */}
           <div className="flex justify-center mt-3">
             <SearchField value={query} onChange={setQuery} />
