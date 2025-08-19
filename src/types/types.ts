@@ -42,7 +42,7 @@ export type PostsState = {
   selectedPostId: number | null;
   isPostsLoading: boolean;
   isCommentsLoading: boolean;
-  setSelectedPostId: (postId: number) => void;
+  setSelectedPostId: (postId: number | null) => void;
   getPosts: () => void;
   addLocalPost: (title: string, body: string) => void;
   getComments: (postId: number) => void;

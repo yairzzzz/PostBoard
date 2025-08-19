@@ -8,7 +8,7 @@ const Card = ({ title, body, to, onClick }: CardProps) => {
       onClick={onClick}
       className="card card-dash bg-base-300 rounded-lg shadow-md cursor-pointer hover:opacity-100 hover:scale-105 transition duration-200"
     >
-      <div className="card-body">
+      <div className="card-body card-xs">
         <h2 className="card-title text-primary">{title}</h2>
         <p>{body}</p>
       </div>

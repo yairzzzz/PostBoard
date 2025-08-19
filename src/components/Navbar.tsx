@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import Logo from "../assets/PostBoardLogo.png";
-
 import daisyuiThemes from "../constants/daisyuiThemes";
 import { themeStore } from "../store/themeStore";
+import { ClipboardList } from "lucide-react";
 
 const Navbar = () => {
   const { setTheme } = themeStore();
@@ -14,11 +13,17 @@ const Navbar = () => {
     >
       <div className=" mx-auto px-4 h-16">
         <div className="flex items-center justify-between h-full">
-          <h1>
-            <Link to={"/"} className="hover:opacity-80 transition-all">
-              <img src={Logo} alt="PostBoard" className="size-40 " />
-            </Link>
-          </h1>
+          <Link
+            to="/"
+            className=" w-auto flex items-center justify-center cursor-pointer hover:opacity-80 transition-all"
+          >
+            <div className="size-9 rounded-lg bg-secondary/10 flex items-center justify-center mr-4">
+              <ClipboardList className="size-6 text-secondary" />
+            </div>
+            <h1 className="sm:block text-lg font-bold tracking-wider">
+              PostBoard
+            </h1>
+          </Link>
           <div className="flex items-center gap-2  ">
             {/* Change theme button */}
 

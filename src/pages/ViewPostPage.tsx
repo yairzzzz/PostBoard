@@ -23,22 +23,22 @@ const ViewPostPage = () => {
         {/* Return button */}
 
         <div
-          className="tooltip tooltip-bottom absolute right-17 top-19 -translate-y-1/2"
+          className="tooltip tooltip-bottom absolute right-19 top-9 -translate-y-1/2 z-50"
           data-tip="Return to home page"
         >
           <Link
             to="/"
-            className="w-6 h-6 cursor-pointer opacity-70 hover:opacity-100 hover:scale-110 transition duration-200"
+            className="w-6 h-6 cursor-pointer absolute opacity-70 hover:opacity-100 hover:scale-110 transition duration-200"
           >
             <Undo2 />
           </Link>
         </div>
         {/* Title */}
-        <div className="flex items-center justify-center gap-2 shadow-sm pb-15 mt-10 w-full">
-          <div className="size-9 rounded-lg bg-secondary/10 flex items-center justify-center mt-1">
-            <MessageSquareMore className="size-6 text-secondary" />
+        <div className="flex items-center justify-center gap-2 shadow-sm pb-12 mt-7 w-full">
+          <div className="size-7 sm:size-9 rounded-lg bg-secondary/10 flex items-center justify-center mt-1">
+            <MessageSquareMore className="size-5 sm:size-6 text-secondary" />
           </div>
-          <h1 className="text-2xl md:text-4xl font-bold  drop-shadow-sm tracking-wide ">
+          <h1 className="text-2xs md:text-4xl font-bold  drop-shadow-sm tracking-wide ">
             View Post Details
           </h1>
         </div>
@@ -46,7 +46,7 @@ const ViewPostPage = () => {
         {isCommentsLoading ? (
           <CommentsSkeleton />
         ) : (
-          <div className="card bg-base-300 sm:mx-10 shadow-xl sm:mt-10">
+          <div className="card bg-base-300 sm:mx-10 shadow-xl sm:mt-5 sm:w-[90%] sm:h-[80%]">
             <div className="card-body">
               <div className="ml-18">
                 <h2 className="card-title text-primary">
@@ -56,7 +56,7 @@ const ViewPostPage = () => {
               </div>
 
               <ul className="card-body list">
-                <li className="p-4 ml-10 pb-0 list-none opacity-70 tracking-wide text-primary">
+                <li className=" ml-10 pb-0 list-none opacity-70 tracking-wide text-primary">
                   Comments ({comments.length})
                 </li>
                 {comments.map((c, i) => (

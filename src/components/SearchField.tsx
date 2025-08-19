@@ -2,7 +2,7 @@ import type { SearchProps } from "../types/types";
 
 const SearchField = ({ value, onChange }: SearchProps) => {
   return (
-    <label className="input flex items-center w-[60%] sm:w-[40%] mb-7">
+    <label className="input flex items-center w-[60%] sm:w-[40%]">
       <svg
         className="h-[1em] opacity-50"
         xmlns="http://www.w3.org/2000/svg"

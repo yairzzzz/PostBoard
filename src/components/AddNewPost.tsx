@@ -18,16 +18,24 @@ const AddNewPost = () => {
   };
 
   const handleSubmit = () => {
-    const title = newPost.title.trim();
-    const body = newPost.body.trim();
+    const title = newPost.title.trim().toLocaleLowerCase();
+    const body = newPost.body.trim().toLowerCase();
 
-    if (!title || !body) return toast.error("Title and body are required.");
+    if (!title || !body) {
+      return toast.error("Title and body are required.");
+    }
 
-    if (title.length > 70)
+    if (title.length > 70) {
       return toast.error("Title can't exceed 70 characters");
+    }
 
-    if (body.length > 140)
+    if (body.length > 140) {
       return toast.error("Body can't exceed 140 characters");
+    }
+
+    if (!/^[A-Za-z]+$/.test(title) || !/^[A-Za-z]+$/.test(body)) {
+      return toast.error("Only letters are allowed!");
+    }
 
     addLocalPost(title, body);
     toast.success("Post created");
@@ -46,14 +54,17 @@ const AddNewPost = () => {
 
       <dialog id="my_modal" className="modal">
         <div className="modal-box h-[35%] w-11/12 max-w-5xl">
-          <h3 className="font-bold text-lg text-secondary mb-10 ml-2">
+          <h3 className="font-bold text-lg text-secondary ml-2">
             Create New Post
           </h3>
 
           <div className="modal-action flex flex-col">
             {/* Form */}
 
-            <form method="dialog" className="flex flex-col w-full space-y-10">
+            <form
+              method="dialog"
+              className="flex flex-col w-full space-y-4 sm:space-y-6"
+            >
               <label htmlFor="title" className="sr-only">
                 Title
               </label>
@@ -84,18 +95,18 @@ const AddNewPost = () => {
               />
             </form>
 
-            <div className="mt-8 mx-20 flex justify-between">
+            <div className="mt-5 flex justify-between">
               <button
                 onClick={handleSubmit}
                 type="submit"
-                className="btn btn-secondary w-35"
+                className="btn btn-secondary w-25 sm:w-35"
               >
                 Submit
               </button>
               <button
                 type="button"
                 onClick={closeModal}
-                className="btn btn-secondary w-35"
+                className="btn btn-secondary w-25 sm:w-35"
               >
                 Close
               </button>

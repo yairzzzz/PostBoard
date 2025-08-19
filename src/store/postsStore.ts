@@ -39,7 +39,7 @@ export const postsStore = create<PostsState>()(
 
       addLocalPost: (title: string, body: string) => {
         const post: Post = {
-          id: `local_${Date.now()}`,
+          id: Math.floor(Math.random() * 1000),
           title,
           body,
         };
