@@ -37,7 +37,9 @@ A modern, responsive web application for browsing, searching, and creating posts
    yarn install
    ```
 
-3. **Running locally — start the development server:**
+   ### Running locally
+
+   **start the development server:**
 
    ```sh
    npm run dev
@@ -45,7 +47,7 @@ A modern, responsive web application for browsing, searching, and creating posts
    yarn dev
    ```
 
-4. **Preview the production build:**
+   **Preview the production build:**
    ```sh
    npm run preview
    # or
