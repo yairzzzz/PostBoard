@@ -67,7 +67,10 @@ export const postsStore = create<PostsState>()(
     }),
     {
       name: "posts-storage",
-      partialize: (s) => ({ localPosts: s.localPosts }),
+      partialize: (s) => ({
+        localPosts: s.localPosts,
+        selectedPostId: s.selectedPostId,
+      }),
     }
   )
 );

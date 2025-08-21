@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import CardsSkeleton from "../components/CardsSkeleton";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import SearchField from "../components/SearchField";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { postsStore } from "../store/postsStore";
 import AddNewPost from "../components/AddNewPost";
 
@@ -18,11 +18,30 @@ export const HomePage = () => {
 
   const formatForSearch = (s: string): string => s.toLowerCase().trim();
 
+  const timerRef = useRef<number | null>(null);
+  const [debouncedQuery, setDebouncedQuery] = useState(query);
+
+  useEffect(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    if (query === "") {
+      // <-- bypass debounce on clear
+      setDebouncedQuery("");
+      return;
+    }
+
+    timerRef.current = window.setTimeout(() => setDebouncedQuery(query), 1000);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [query]);
+
   const filteredPosts = useMemo(() => {
-    const q = formatForSearch(query);
+    const q = formatForSearch(debouncedQuery);
     if (!q) return posts;
     return posts.filter((p) => p.title.includes(q));
-  }, [posts, query]);
+  }, [posts, debouncedQuery]);
 
   const totalPages = Math.max(Math.ceil(filteredPosts.length / PAGE_SIZE)) || 1;
 
